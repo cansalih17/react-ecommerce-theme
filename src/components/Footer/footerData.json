@@ -1,0 +1,34 @@
+{
+  "brand": "Nexton",
+  "sections": [
+    {
+      "title": "Getting Started",
+      "links": [
+        { "text": "Release Notes", "url": "/" },
+        { "text": "Upgrade Guide", "url": "/" },
+        { "text": "Browser Support", "url": "/" },
+        { "text": "Dark Mode", "url": "/" }
+      ]
+    },
+    {
+      "title": "Customer Support",
+      "links": [
+        { "text": "FAQ", "url": "/" },
+        { "text": "Contact Us", "url": "/" },
+        { "text": "Shipping Info", "url": "/" },
+        { "text": "Returns & Exchanges", "url": "/" }
+      ]
+    },
+    {
+      "title": "Follow Us",
+      "links": [
+        { "text": "Facebook", "url": "/" },
+        { "text": "Twitter", "url": "/" },
+        { "text": "Instagram", "url": "/" },
+        { "text": "LinkedIn", "url": "/" }
+      ]
+    }
+  ],
+  "paymentIconUrl": "images/payment-icons.png",
+  "paymentIconLinkUrl": "/"
+}
