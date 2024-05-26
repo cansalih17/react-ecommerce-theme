@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { cartToggle } from "../../redux/cartSlice";
+import toast from "react-hot-toast";
 
 const HomeProductCard = ({
   imageUrl,
@@ -12,17 +15,52 @@ const HomeProductCard = ({
   numReviews,
   productURL,
   categoryURL,
+  discountedPrice,
+  id,
 }) => {
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.cart);
+
+  const handleAddCart = (item, className) => {
+    dispatch(cartToggle(item));
+    const isItemInCart = className.includes("text-white bg-bodyTextColor");
+    if (isItemInCart) {
+      toast.success("Ürün kaldırıldı");
+    } else {
+      toast.success("Ürün sepete eklendi");
+    }
+  };
+
+  const isItemInCart = items && items.find((item) => item.id === id);
+  const buttonClass = `absolute top-[12px] right-[12px] bg-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer text-bodyTextColor ${isItemInCart ? "text-white bg-bodyTextColor" : "bg-white"}`;
+
   return (
     <div className="relative">
-      <div className="absolute top-[12px] right-[12px] bg-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer text-bodyTextColor hover:bg-gray-400 hover:text-white duration-300">
+      <button
+        onClick={() =>
+          handleAddCart(
+            {
+              imageUrl,
+              productName,
+              category,
+              price,
+              discountedPrice,
+              id,
+              productURL,
+              categoryURL,
+            },
+            buttonClass
+          )
+        }
+        className={buttonClass}
+      >
         <AiOutlineShopping size={18} />
-      </div>
+      </button>
       <Link
         to={productURL}
         className="bg-grayBackgroundColor h-[347px] rounded-2xl flex items-center justify-center mb-[20px] "
       >
-        <img src={imageUrl} alt={productName} className="w-64" />
+        <img src={`/${imageUrl}`} alt={productName} className="w-64" />
       </Link>
       <div className="flex items-center justify-between mb-[15px]">
         <div className="flex flex-col">

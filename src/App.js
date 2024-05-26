@@ -12,12 +12,22 @@ import OrderSuccess from "./pages/OrderSuccess";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { Toaster } from "react-hot-toast";
+import CategoryResult from "./pages/CategoryResult";
 
 function App() {
   return (
     <div className="font-poppins">
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "#fff",
+            color: "#111827",
+          },
+        }}
+      />
       <Header />
-      {/* a */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -26,6 +36,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/search/:product" element={<SearchResult />} />
+        <Route path="/category/:category" element={<CategoryResult />} />
         <Route path="/filter" element={<Filter />} />
         <Route path="/product-detail/:id" element={<ProductDetail />} />
         <Route path="*" element={<NotFound />} />

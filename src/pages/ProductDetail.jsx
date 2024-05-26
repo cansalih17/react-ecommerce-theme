@@ -1,61 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductDetailDescription from "../components/ProductDetail/ProductDetailDescription";
 import ProductDetailProductInfo from "../components/ProductDetail/ProductDetailProductInfo";
 import ProductDetailReviews from "../components/ProductDetail/ProductDetailReviews";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetailFunc } from "../redux/getProductDetailSlice";
 
 const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState("description");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.getProductDetail);
 
-  const sections = [
-    {
-      title: "Black Automatic Watch",
-      text: "The St. Louis Meramec Canoe Company was founded by Alfred Wickett in 1922. Wickett had previously worked for the Old Town Canoe Co from 1900 to 1914. Manufacturing of the classic wooden canoes in Valley Park, Missouri ceased in 1978.",
-    },
-    {
-      title: "Fabric + Care",
-      text: "Material: Soft wool blend Color: Various",
-    },
-    {
-      title: "Sale performance",
-      text: "The St. Louis Meramec Canoe Company was founded by Alfred Wickett in 1922. Wickett had",
-    },
-  ];
-
-  const keywords = [
-    "colorful accessory",
-    "stylish",
-    "durable",
-    "qwdqwdqw",
-    "qwdwqdwqdwq",
-  ];
-
-  const product = {
-    imageSrc: "/images/product4.png",
-    rating: 4.9,
-    price: 169.99,
-    oldPrice: 199.99,
-    sizes: [
-      { label: "S", selected: true, disabled: false },
-      { label: "M", selected: false, disabled: false },
-      { label: "L", selected: false, disabled: false },
-      { label: "XL", selected: false, disabled: false },
-      { label: "2X", selected: false, disabled: true },
-    ],
-    count: 1,
-  };
+  useEffect(() => {
+    dispatch(getProductDetailFunc(id));
+  }, []);
 
   return (
     <div className="py-10">
       <div className="container mx-auto px-10 md:px-0">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-10 mb-[50px]">
-          <ProductDetailProductInfo
-            imageSrc={product.imageSrc}
-            rating={product.rating}
-            price={product.price}
-            oldPrice={product.oldPrice}
-            sizes={product.sizes}
-            count={product.count}
-          />
+          {data && (
+            <ProductDetailProductInfo
+              imageSrc={data.image}
+              rating={data.rating}
+              price={data.price}
+              discountedPrice={data.discountedPrice}
+              productName={data.name}
+              category={data.category}
+              id={data.id}
+              productURL={`/product-detail/${data.id}`}
+              categoryURL={`/category/${data.category}`}
+            />
+          )}
         </div>
         <div className="flex justify-center mb-8">
           <button
@@ -79,10 +56,13 @@ const ProductDetail = () => {
             Reviews
           </button>
         </div>
-        {activeTab === "description" && (
-          <ProductDetailDescription sections={sections} keywords={keywords} />
+        {activeTab === "description" && data && (
+          <ProductDetailDescription data={data} />
         )}
-        {activeTab === "reviews" && <ProductDetailReviews />}
+
+        {activeTab === "reviews" && data && (
+          <ProductDetailReviews reviews={data.reviews} />
+        )}
       </div>
     </div>
   );

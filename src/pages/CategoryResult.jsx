@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import Hero from "../components/Hero/Hero";
-import HomeTitle from "../components/Home/HomeTitle";
+import React, { useEffect, useState } from "react";
 import HomeProductCard from "../components/Home/HomeProductCard";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getAllProductsFunc } from "../redux/getAllProductsSlice";
 
-const Home = () => {
+const CategoryResult = () => {
+  const { category } = useParams();
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.getAllProducts);
 
@@ -14,18 +14,23 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      <Hero />
-      <div className="py-24">
-        <div className="container mx-auto">
-          <HomeTitle
-            mainTitle={"Best Sellers."}
-            subTitle={"Best selling of the month"}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-16 px-10 md:px-0">
-            {data &&
-              data.map((item, index) => (
+    <div className="py-12">
+      <div className="container mx-auto px-10 md:px-0">
+        <h3 className="font-semibold text-3xl text-primaryColor pb-6 border-b border-borderColor mb-8">
+          Category: {category} (
+          {data &&
+            data.filter((item) =>
+              item.category.toLowerCase().includes(category.toLowerCase())
+            ).length}
+          )
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-16">
+          {data &&
+            data
+              .filter((item) =>
+                item.category.toLowerCase().includes(category.toLowerCase())
+              )
+              .map((item) => (
                 <HomeProductCard
                   id={item.id}
                   imageUrl={item.image}
@@ -39,11 +44,10 @@ const Home = () => {
                   categoryURL={`/category/${item.category}`}
                 />
               ))}
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Home;
+export default CategoryResult;

@@ -5,9 +5,11 @@ import { LuShoppingCart } from "react-icons/lu";
 import { FiFilter } from "react-icons/fi";
 import { IoMenu } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.cart.items);
 
   const data = {
     brand: {
@@ -18,17 +20,10 @@ const Header = () => {
     userIconUrl: "/login",
     filterIconUrl: "/filter",
     cartIconUrl: "/cart",
-    cartItemCount: 0,
   };
 
-  const {
-    brand,
-    searchPlaceholder,
-    userIconUrl,
-    filterIconUrl,
-    cartIconUrl,
-    cartItemCount,
-  } = data;
+  const { brand, searchPlaceholder, userIconUrl, filterIconUrl, cartIconUrl } =
+    data;
 
   const handleSearch = (event) => {
     if (event.key === "Enter" && event.target.value.trim() !== "") {
@@ -69,7 +64,7 @@ const Header = () => {
           <Link to={cartIconUrl} className="relative">
             <LuShoppingCart size={24} className="text-bodyTextColor" />
             <span className="absolute -top-2 -right-2 bg-vibrantColor rounded-full text-white  w-[20px] h-[20px] flex items-center justify-center text-[12px]">
-              {cartItemCount}
+              {cartItems.length || 0}
             </span>
           </Link>
           {/*
