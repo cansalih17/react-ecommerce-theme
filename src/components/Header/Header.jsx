@@ -95,7 +95,7 @@ const Header = () => {
           />
           <input
             onKeyDown={(event) => handleSearch(event)}
-            type="text"
+            type="search"
             className="bg-grayBackgroundColor py-4 px-6 pl-14 text-bodyTextColor outline-none rounded-full w-[450px]"
             placeholder={data.searchPlaceholder}
           />
