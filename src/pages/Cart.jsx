@@ -12,7 +12,7 @@ const Cart = () => {
 
   const handleDelete = (id) => {
     dispatch(removeItemFromCart(id));
-    toast.success("Ürün sepetten kaldırıldı");
+    toast.success("Product removed from your cart");
   };
 
   let totalAmount = 0;

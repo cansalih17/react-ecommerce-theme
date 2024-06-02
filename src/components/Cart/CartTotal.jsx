@@ -9,7 +9,7 @@ const CartTotal = (props) => {
 
   const handleAllClear = () => {
     dispatch(allClear());
-    toast.success("Sepet sıfırlandı");
+    toast.success("Your cart has been reset");
   };
 
   return (

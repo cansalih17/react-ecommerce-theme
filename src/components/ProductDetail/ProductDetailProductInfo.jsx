@@ -52,7 +52,7 @@ const ProductDetailProductInfo = ({
 
   const handleAddCart = (item) => {
     dispatch(addItemToCart(item));
-    toast.success("Ürün sepete eklendi");
+    toast.success("Product added to your cart");
   };
 
   return (

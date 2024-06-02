@@ -23,11 +23,11 @@ const HomeProductCard = ({
 
   const handleAddCart = (item, className) => {
     dispatch(cartToggle(item));
-    const isItemInCart = className.includes("text-white bg-bodyTextColor");
+    const isItemInCart = className.includes("bg-[#4B5563] text-white");
     if (isItemInCart) {
-      toast.success("Ürün kaldırıldı");
+      toast.success("Product removed from your cart");
     } else {
-      toast.success("Ürün sepete eklendi");
+      toast.success("Product added to your cart");
     }
   };
 
