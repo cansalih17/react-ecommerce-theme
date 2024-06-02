@@ -4,6 +4,7 @@ import CartTotal from "../components/Cart/CartTotal";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart } from "../redux/cartSlice";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,15 @@ const Cart = () => {
                   onClick={() => handleDelete(item.id)}
                 />
               ))}
+            {items.length === 0 && (
+              <p className="text-lg">
+                There are no items in your cart,{" "}
+                <Link to="/filter" className="text-vibrantColor font-semibold">
+                  continue
+                </Link>{" "}
+                shopping here
+              </p>
+            )}
           </div>
           <CartTotal
             totalAmount={totalAmount}

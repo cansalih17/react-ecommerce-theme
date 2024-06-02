@@ -32,7 +32,7 @@ const HomeProductCard = ({
   };
 
   const isItemInCart = items && items.find((item) => item.id === id);
-  const buttonClass = `absolute top-[12px] right-[12px] bg-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer text-bodyTextColor ${isItemInCart ? "text-white bg-bodyTextColor" : "bg-white"}`;
+  const buttonClass = `absolute top-[12px] right-[12px] bg-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer text-bodyTextColor ${isItemInCart ? "bg-[#4B5563] text-white" : "bg-white"}`;
 
   return (
     <div className="relative">
